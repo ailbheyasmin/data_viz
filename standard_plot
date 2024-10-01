@@ -1,0 +1,4 @@
+library(ggplot2)
+library(ggthemes)
+plot + theme_tufte(axis.title = element_text(size=14)) +
+theme(axis.text = element_text(size=12)) #my_better_axes
