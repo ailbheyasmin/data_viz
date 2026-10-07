@@ -1,0 +1,43 @@
+// Asset management tracking progress by service area (map number)
+var pct = Round(DefaultValue($datapoint["progress_percent"], 0))
+var output = iif(pct==0,"white","#2ec72eff")
+var total = DefaultValue($datapoint["minipillar_count"], 0)
+
+function overallBar(perc){
+  var html = '';
+  html += '<table style="background-color:#f0f0f0; border-radius:25px; width:100%">';
+  html += '<tbody>';
+  html += '<tr>';
+  html += '<td>';
+  html += '<table style="width:100%; height: 100%;">'; // Ensure inner table also respects height
+  html += '<tbody>';
+  html += '<tr>';
+  var barWidth = IIf(perc >= 0 && perc < 10, '8' ,perc)
+  html += '<td style="background-color:'+output+'; border-radius:25px;color:black;text-align:center;width:' + barWidth + '%; min-width: 20px;"><b>' + perc + '%</b></td>';
+  html += '<td style="font-size:0px; padding:0.1px; width=0%" ></td>';
+  html += '</tr>';
+  html += '</tbody>';
+  html += '</table>';
+  html += '</td>';
+  html += '</tr>';
+  html += '</tbody>';
+  html += '</table>';
+  return html;
+}
+
+var html_output =  overallBar(pct)
+
+
+return {
+  textColor: '',
+  backgroundColor: '',
+  separatorColor:'',
+  selectionColor: '',
+  selectionTextColor: '',
+  attributes: {
+    percentage: pct,
+    colour: output,
+    Count: total,
+    source:html_output
+  }
+}
